@@ -6,12 +6,14 @@ const {username, room} = Qs.parse(location.search, {
 })
 // console.log(username)
 const socket = io()
+
+//Join chatroom
+socket.emit('joinRoom', {username, room})
 // Get message from server
 socket.on('message', message =>{
     console.log(message)
-    outputMessage(message.username, message.content, message.time)
-
     socket.emit('username', username);
+    outputMessage(message.username, message.content, message.time)
 })
 
 // Message submit
